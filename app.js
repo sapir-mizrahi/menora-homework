@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = 4000;
 const moviesRoute = require("./routes/movies.route");
-var path = require('path')
 
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
@@ -34,10 +33,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/api", moviesRoute);
+app.use(app.static(path.join(__dirname, 'build')));
 
-app.use(express.static(path.join(__dirname, 'build')));
 
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
